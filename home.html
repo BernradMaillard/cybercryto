@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cybercrypto-intel-hub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>CyberCrypto</h1>
+                <span class="subtitle">Security Forum</span>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search discussions..." class="search-input">
+                <button class="search-btn" onclick="searchDiscussions()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="discussions.html" class="nav-link">Discussions</a>
+                <a href="resources.html" class="nav-link">Resources</a>
+                <a href="events.html" class="nav-link">Events</a>
+                <a href="careers.html" class="nav-link">Careers</a>
+            </nav>
+
+            <!-- User Authentication -->
+            <div class="auth-section">
+                <div id="guestUser" class="guest-section">
+                    <button class="btn btn-outline" onclick="openLoginModal()">Login</button>
+                    <button class="btn btn-primary" onclick="openRegisterModal()">Join Forum</button>
+                </div>
+                <div id="authenticatedUser" class="user-section" style="display: none;">
+                    <div class="user-avatar" onclick="toggleUserMenu()">
+                        <img src="https://ext.same-assets.com/949748317/2189427677.svg" alt="User Avatar" id="userAvatar">
+                        <span id="userName">John Doe</span>
+                    </div>
+                    <div class="user-menu" id="userMenu">
+                        <a href="#" onclick="viewProfile()">Profile</a>
+                        <a href="#" onclick="viewSettings()">Settings</a>
+                        <a href="#" onclick="logout()">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-icon">
+                    <img src="https://ext.same-assets.com/949748317/2189427677.svg" alt="Security Icon">
+                </div>
+                <h1 class="hero-title">CyberCrypto<br>Security Forum</h1>
+                <p class="hero-description">Join the premier community for cybersecurity professionals, enthusiasts, and learners. Share knowledge, collaborate on solutions, and stay ahead of emerging threats.</p>
+
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <img src="https://ext.same-assets.com/949748317/2781451719.svg" alt="Secure Discussions">
+                        <span>Secure Discussions</span>
+                    </div>
+                    <div class="feature-item">
+                        <img src="https://ext.same-assets.com/949748317/609897021.svg" alt="Global Community">
+                        <span>Global Community</span>
+                    </div>
+                    <div class="feature-item">
+                        <img src="https://ext.same-assets.com/949748317/2718303089.svg" alt="Real-time Updates">
+                        <span>Real-time Updates</span>
+                    </div>
+                    <div class="feature-item">
+                        <img src="https://ext.same-assets.com/949748317/3659096490.svg" alt="Expert Moderation">
+                        <span>Expert Moderation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Discussion Categories -->
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Discussion Categories</h2>
+            <p class="section-subtitle">Explore our diverse range of cybersecurity and cryptography topics</p>
+
+            <div class="categories-grid">
+                <div class="category-card">
+                    <h3>Threat Analysis</h3>
+                    <p>Latest threats, malware analysis, and security incidents</p>
+                    <div class="category-stats">
+                        <span class="post-count">1247 posts</span>
+                        <span class="status active">Active</span>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <h3>Cryptography</h3>
+                    <p>Encryption algorithms, protocols, and implementation</p>
+                    <div class="category-stats">
+                        <span class="post-count">856 posts</span>
+                        <span class="status active">Active</span>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <h3>Career Guidance</h3>
+                    <p>Certifications, job opportunities, and career paths</p>
+                    <div class="category-stats">
+                        <span class="post-count">634 posts</span>
+                        <span class="status active">Active</span>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <h3>Tools & Scripts</h3>
+                    <p>Security tools, scripts, and automation</p>
+                    <div class="category-stats">
+                        <span class="post-count">923 posts</span>
+                        <span class="status active">Active</span>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <h3>Learning Resources</h3>
+                    <p>Tutorials, courses, and educational materials</p>
+                    <div class="category-stats">
+                        <span class="post-count">445 posts</span>
+                        <span class="status active">Active</span>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <h3>General Security</h3>
+                    <p>Best practices, policies, and general discussions</p>
+                    <div class="category-stats">
+                        <span class="post-count">1089 posts</span>
+                        <span class="status active">Active</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Discussions -->
+    <section class="recent-discussions">
+        <div class="container">
+            <h2 class="section-title">Recent Discussions</h2>
+
+            <div class="discussions-list">
+                <div class="discussion-item pinned">
+                    <div class="discussion-tags">
+                        <span class="tag pinned-tag">SE</span>
+                        <span class="tag">Pinned</span>
+                        <span class="tag category">Threat Analysis</span>
+                    </div>
+                    <h3>Zero-day vulnerability discovered in popular VPN client</h3>
+                    <p>A critical vulnerability has been found that allows remote code execution...</p>
+                    <div class="discussion-meta">
+                        <span class="author">SecResearcher</span>
+                        <span class="time">2 hours ago</span>
+                        <div class="stats">
+                            <span>45</span>
+                            <span>23</span>
+                            <span>18</span>
+                            <span>47</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="discussion-item">
+                    <div class="discussion-tags">
+                        <span class="tag">CR</span>
+                        <span class="tag category">Cryptography</span>
+                    </div>
+                    <h3>Best practices for implementing AES-256 in production</h3>
+                    <p>Looking for recommendations on secure AES implementation patterns...</p>
+                    <div class="discussion-meta">
+                        <span class="author">CryptoExpert</span>
+                        <span class="time">4 hours ago</span>
+                        <div class="stats">
+                            <span>31</span>
+                            <span>18</span>
+                            <span>9</span>
+                            <span>32</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="discussion-item">
+                    <div class="discussion-tags">
+                        <span class="tag">AS</span>
+                        <span class="tag category">Career Guidance</span>
+                    </div>
+                    <h3>CISSP vs CEH: Which certification should I pursue first?</h3>
+                    <p>I'm new to cybersecurity and trying to decide between these certifications...</p>
+                    <div class="discussion-meta">
+                        <span class="author">AspiringSec</span>
+                        <span class="time">6 hours ago</span>
+                        <div class="stats">
+                            <span>67</span>
+                            <span>41</span>
+                            <span>21</span>
+                            <span>34</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="discussion-item">
+                    <div class="discussion-tags">
+                        <span class="tag">PE</span>
+                        <span class="tag category">Tools & Scripts</span>
+                    </div>
+                    <h3>Python script for automated penetration testing</h3>
+                    <p>Sharing a Python framework I've been working on for automated testing...</p>
+                    <div class="discussion-meta">
+                        <span class="author">PenTester</span>
+                        <span class="time">8 hours ago</span>
+                        <div class="stats">
+                            <span>28</span>
+                            <span>12</span>
+                            <span>7</span>
+                            <span>56</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="discussion-item">
+                    <div class="discussion-tags">
+                        <span class="tag">TH</span>
+                        <span class="tag category">Threat Analysis</span>
+                    </div>
+                    <h3>Understanding the latest ransomware attack vectors</h3>
+                    <p>Analysis of recent ransomware campaigns and their infection methods...</p>
+                    <div class="discussion-meta">
+                        <span class="author">ThreatAnalyst</span>
+                        <span class="time">12 hours ago</span>
+                        <div class="stats">
+                            <span>52</span>
+                            <span>35</span>
+                            <span>15</span>
+                            <span>23</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Stats -->
+    <section class="community-stats">
+        <div class="container">
+            <h2 class="section-title">Community Stats</h2>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">12,847</div>
+                    <div class="stat-label">Members</div>
+                    <div class="stat-change">+234</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-number">4,923</div>
+                    <div class="stat-label">Discussions</div>
+                    <div class="stat-change">+89</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-number">28,391</div>
+                    <div class="stat-label">Daily Views</div>
+                    <div class="stat-change">+1,247</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-number">2,156</div>
+                    <div class="stat-label">Active Today</div>
+                    <div class="stat-change">+312</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resource Center -->
+    <section class="resource-center">
+        <div class="container">
+            <h2 class="section-title">Resource Center</h2>
+
+            <div class="resources-grid">
+                <div class="resource-item">
+                    <h3>NIST Cybersecurity Framework</h3>
+                    <span class="resource-type">Guide</span>
+                    <span class="download-count">2.3k downloads</span>
+                </div>
+
+                <div class="resource-item">
+                    <h3>OWASP Top 10 2024</h3>
+                    <span class="resource-type">Report</span>
+                    <span class="download-count">1.8k downloads</span>
+                </div>
+
+                <div class="resource-item">
+                    <h3>Cryptography Handbook</h3>
+                    <span class="resource-type">eBook</span>
+                    <span class="download-count">1.2k downloads</span>
+                </div>
+
+                <div class="resource-item">
+                    <h3>Security Tools Catalog</h3>
+                    <span class="resource-type">Database</span>
+                    <span class="download-count">945 downloads</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>CyberCrypto Security Forum</h3>
+                    <p class="footer-tagline">Empowering Digital Security</p>
+                    <p>Join our inclusive community of cybersecurity professionals, enthusiasts, and learners. Share knowledge, collaborate, and stay ahead of emerging threats.</p>
+                    <div class="social-icons">
+                        <img src="https://ext.same-assets.com/949748317/3190792482.svg" alt="Social Icon">
+                        <img src="https://ext.same-assets.com/949748317/1113165476.svg" alt="Social Icon">
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <div class="link-column">
+                        <h4>Community</h4>
+                        <ul>
+                            <li><a href="#">Discussions</a></li>
+                            <li><a href="#">Members</a></li>
+                            <li><a href="#">Events</a></li>
+                            <li><a href="#">Leaderboard</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="link-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="#">Security Tools</a></li>
+                            <li><a href="#">Learning Paths</a></li>
+                            <li><a href="#">Certifications</a></li>
+                            <li><a href="#">Career Center</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 CyberCrypto Security Forum. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Code of Conduct</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Login to CyberCrypto</h2>
+                <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            </div>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    <a href="#" onclick="openRegisterModal(); closeModal('loginModal')">Don't have an account? Register</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Join CyberCrypto Forum</h2>
+                <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            </div>
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerUsername">Username</label>
+                    <input type="text" id="registerUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPasswordConfirm">Confirm Password</label>
+                    <input type="password" id="registerPasswordConfirm" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Join Forum</button>
+                    <a href="#" onclick="openLoginModal(); closeModal('registerModal')">Already have an account? Login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Search Results Modal -->
+    <div id="searchModal" class="modal">
+        <div class="modal-content wide">
+            <div class="modal-header">
+                <h2>Search Results</h2>
+                <span class="close" onclick="closeModal('searchModal')">&times;</span>
+            </div>
+            <div class="search-filters">
+                <select id="categoryFilter">
+                    <option value="">All Categories</option>
+                    <option value="threat-analysis">Threat Analysis</option>
+                    <option value="cryptography">Cryptography</option>
+                    <option value="career-guidance">Career Guidance</option>
+                    <option value="tools-scripts">Tools & Scripts</option>
+                    <option value="learning-resources">Learning Resources</option>
+                    <option value="general-security">General Security</option>
+                </select>
+                <select id="dateFilter">
+                    <option value="">Any time</option>
+                    <option value="today">Today</option>
+                    <option value="week">This week</option>
+                    <option value="month">This month</option>
+                    <option value="year">This year</option>
+                </select>
+                <button class="btn btn-outline" onclick="applySearchFilters()">Apply Filters</button>
+            </div>
+            <div id="searchResults" class="search-results">
+                <!-- Search results will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - CyberCrypto Security Forum</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="page-styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>CyberCrypto</h1>
+                <span class="subtitle">Security Forum</span>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search discussions..." class="search-input">
+                <button class="search-btn" onclick="searchDiscussions()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="discussions.html" class="nav-link">Discussions</a>
+                <a href="resources.html" class="nav-link active">Resources</a>
+                <a href="events.html" class="nav-link">Events</a>
+                <a href="careers.html" class="nav-link">Careers</a>
+            </nav>
+
+            <!-- User Authentication -->
+            <div class="auth-section">
+                <div id="guestUser" class="guest-section">
+                    <button class="btn btn-outline" onclick="openLoginModal()">Login</button>
+                    <button class="btn btn-primary" onclick="openRegisterModal()">Join Forum</button>
+                </div>
+                <div id="authenticatedUser" class="user-section" style="display: none;">
+                    <div class="user-avatar" onclick="toggleUserMenu()">
+                        <img src="https://ext.same-assets.com/949748317/2189427677.svg" alt="User Avatar" id="userAvatar">
+                        <span id="userName">John Doe</span>
+                    </div>
+                    <div class="user-menu" id="userMenu">
+                        <a href="#" onclick="viewProfile()">Profile</a>
+                        <a href="#" onclick="viewSettings()">Settings</a>
+                        <a href="#" onclick="logout()">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Security Resources</h1>
+            <p>Comprehensive collection of cybersecurity guides, tools, and educational materials</p>
+        </div>
+    </section>
+
+    <!-- Resources Categories -->
+    <section class="resources-section">
+        <div class="container">
+            <!-- Featured Resources -->
+            <div class="resource-category">
+                <h2>Featured Resources</h2>
+                <div class="resources-grid">
+                    <div class="resource-card featured">
+                        <div class="resource-icon">📋</div>
+                        <h3>NIST Cybersecurity Framework</h3>
+                        <p>Comprehensive framework for improving critical infrastructure cybersecurity</p>
+                        <div class="resource-meta">
+                            <span class="resource-type">Guide</span>
+                            <span class="download-count">2.3k downloads</span>
+                        </div>
+                        <button class="btn btn-primary" onclick="downloadResource('nist-framework')">
+                            Download PDF
+                        </button>
+                    </div>
+
+                    <div class="resource-card featured">
+                        <div class="resource-icon">⚠️</div>
+                        <h3>OWASP Top 10 2024</h3>
+                        <p>The latest web application security risks and mitigation strategies</p>
+                        <div class="resource-meta">
+                            <span class="resource-type">Report</span>
+                            <span class="download-count">1.8k downloads</span>
+                        </div>
+                        <button class="btn btn-primary" onclick="downloadResource('owasp-top10')">
+                            Download PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Guides & Documentation -->
+            <div class="resource-category">
+                <h2>Guides & Documentation</h2>
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <div class="resource-icon">🔐</div>
+                        <h3>Cryptography Handbook</h3>
+                        <p>Complete guide to modern cryptographic protocols and implementations</p>
+                        <div class="resource-meta">
+                            <span class="resource-type">eBook</span>
+                            <span class="download-count">1.2k downloads</span>
+                        </div>
+                        <button class="btn btn-outline" onclick="downloadResource('crypto-handbook')">
+                            Download
+                        </button>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-icon">🛡️</div>
+                        <h3>Incident Response Playbook</h3>
+                        <p>Step-by-step procedures for handling cybersecurity incidents</p>
+                        <div class="resource-meta">
+                            <span class="resource-type">Guide</span>
+                            <span class="download-count">945 downloads</span>
+                        </div>
+                        <button class="btn btn-outline" onclick="downloadResource('ir-playbook')">
+                            Download
+                        </button>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-icon">🔍</div>
+                        <h3>Penetration Testing Methodology</h3>
+                        <p>Comprehensive methodology for conducting security assessments</p>
+                        <div class="resource-meta">
+                            <span class="resource-type">Guide</span>
+                            <span class="download-count">756 downloads</span>
+                        </div>
+                        <button class="btn btn-outline" onclick="downloadResource('pentest-methodology')">
+                            Download
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tools & Scripts -->
+            <div class="resource-category">
+                <h2>Tools & Scripts</h2>
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <div class="resource-icon">⚙️</div>
+                        <h3>Security Tools Catalog</h3>
+                        <p>Curated list of essential cybersecurity tools and utilities</p>
+                        <div class="resource-meta">
+                            <span class="resource-type">Database</span>
+                            <span class="download-count">1.5k downloads</span>
+                        </div>
+                        <button class="btn btn-outline" onclick="downloadResource('tools-catalog')">
+                            Download
+                        </button>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-icon">🐍</div>
+                        <h3>Python Security Scripts</h3>
+                        <p>Collection of Python scripts for security automation and testing</p>
+                        <div class="resource-meta">
+                            <span class="resource-type">Scripts</span>
+                            <span class="download-count">892 downloads</span>
+                        </div>
+                        <button class="btn btn-outline" onclick="downloadResource('python-scripts')">
+                            View on GitHub
+                        </button>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-icon">💻</div>
+                        <h3>PowerShell Security Modules</h3>
+                        <p>PowerShell modules for Windows security management and monitoring</p>
+                        <div class="resource-meta">
+                            <span class="resource-type">Scripts</span>
+                            <span class="download-count">634 downloads</span>
+                        </div>
+                        <button class="btn btn-outline" onclick="downloadResource('powershell-modules')">
+                            View on GitHub
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cheat Sheets -->
+            <div class="resource-category">
+                <h2>Cheat Sheets</h2>
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <div class="resource-icon">📝</div>
+                        <h3>Linux Security Commands</h3>
+                        <p>Essential Linux commands for security professionals</p>
+                        <div class="resource-meta">
+                            <span class="resource-type">Cheat Sheet</span>
+                            <span class="download-count">2.1k downloads</span>
+                        </div>
+                        <button class="btn btn-outline" onclick="downloadResource('linux-commands')">
+                            Download
+                        </button>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-icon">🌐</div>
+                        <h3>Network Security Checklist</h3>
+                        <p>Comprehensive checklist for network security assessments</p>
+                        <div class="resource-meta">
+                            <span class="resource-type">Checklist</span>
+                            <span class="download-count">1.3k downloads</span>
+                        </div>
+                        <button class="btn btn-outline" onclick="downloadResource('network-checklist')">
+                            Download
+                        </button>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-icon">🔒</div>
+                        <h3>Encryption Standards Reference</h3>
+                        <p>Quick reference for encryption algorithms and standards</p>
+                        <div class="resource-meta">
+                            <span class="resource-type">Reference</span>
+                            <span class="download-count">987 downloads</span>
+                        </div>
+                        <button class="btn btn-outline" onclick="downloadResource('encryption-reference')">
+                            Download
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Include modals -->
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Login to CyberCrypto</h2>
+                <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            </div>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    <a href="#" onclick="openRegisterModal(); closeModal('loginModal')">Don't have an account? Register</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Join CyberCrypto Forum</h2>
+                <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            </div>
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerUsername">Username</label>
+                    <input type="text" id="registerUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPasswordConfirm">Confirm Password</label>
+                    <input type="password" id="registerPasswordConfirm" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Join Forum</button>
+                    <a href="#" onclick="openLoginModal(); closeModal('registerModal')">Already have an account? Login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Search Results Modal -->
+    <div id="searchModal" class="modal">
+        <div class="modal-content wide">
+            <div class="modal-header">
+                <h2>Search Results</h2>
+                <span class="close" onclick="closeModal('searchModal')">&times;</span>
+            </div>
+            <div class="search-filters">
+                <select id="categoryFilter">
+                    <option value="">All Categories</option>
+                    <option value="threat-analysis">Threat Analysis</option>
+                    <option value="cryptography">Cryptography</option>
+                    <option value="career-guidance">Career Guidance</option>
+                    <option value="tools-scripts">Tools & Scripts</option>
+                    <option value="learning-resources">Learning Resources</option>
+                    <option value="general-security">General Security</option>
+                </select>
+                <select id="dateFilter">
+                    <option value="">Any time</option>
+                    <option value="today">Today</option>
+                    <option value="week">This week</option>
+                    <option value="month">This month</option>
+                    <option value="year">This year</option>
+                </select>
+                <button class="btn btn-outline" onclick="applySearchFilters()">Apply Filters</button>
+            </div>
+            <div id="searchResults" class="search-results">
+                <!-- Search results will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function downloadResource(resourceId) {
+            if (!isLoggedIn) {
+                showNotification('Please log in to download resources', 'error');
+                openLoginModal();
+                return;
+            }
+
+            // Simulate download
+            showNotification(`Starting download for ${resourceId}...`, 'success');
+
+            // In a real app, this would trigger actual file download
+            setTimeout(() => {
+                showNotification('Download completed!', 'success');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

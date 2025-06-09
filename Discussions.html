@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discussions - CyberCrypto Security Forum</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="page-styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>CyberCrypto</h1>
+                <span class="subtitle">Security Forum</span>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search discussions..." class="search-input">
+                <button class="search-btn" onclick="searchDiscussions()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="discussions.html" class="nav-link active">Discussions</a>
+                <a href="resources.html" class="nav-link">Resources</a>
+                <a href="events.html" class="nav-link">Events</a>
+                <a href="careers.html" class="nav-link">Careers</a>
+            </nav>
+
+            <!-- User Authentication -->
+            <div class="auth-section">
+                <div id="guestUser" class="guest-section">
+                    <button class="btn btn-outline" onclick="openLoginModal()">Login</button>
+                    <button class="btn btn-primary" onclick="openRegisterModal()">Join Forum</button>
+                </div>
+                <div id="authenticatedUser" class="user-section" style="display: none;">
+                    <div class="user-avatar" onclick="toggleUserMenu()">
+                        <img src="https://ext.same-assets.com/949748317/2189427677.svg" alt="User Avatar" id="userAvatar">
+                        <span id="userName">John Doe</span>
+                    </div>
+                    <div class="user-menu" id="userMenu">
+                        <a href="#" onclick="viewProfile()">Profile</a>
+                        <a href="#" onclick="viewSettings()">Settings</a>
+                        <a href="#" onclick="logout()">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Discussions</h1>
+            <p>Engage in cybersecurity discussions with experts and enthusiasts</p>
+            <div class="page-actions">
+                <button class="btn btn-primary" onclick="openNewDiscussionModal()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    New Discussion
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Discussion Categories and Filters -->
+    <section class="discussion-filters">
+        <div class="container">
+            <div class="filter-tabs">
+                <button class="filter-tab active" onclick="filterByCategory('all')">All</button>
+                <button class="filter-tab" onclick="filterByCategory('threat-analysis')">Threat Analysis</button>
+                <button class="filter-tab" onclick="filterByCategory('cryptography')">Cryptography</button>
+                <button class="filter-tab" onclick="filterByCategory('career-guidance')">Career Guidance</button>
+                <button class="filter-tab" onclick="filterByCategory('tools-scripts')">Tools & Scripts</button>
+                <button class="filter-tab" onclick="filterByCategory('learning-resources')">Learning Resources</button>
+                <button class="filter-tab" onclick="filterByCategory('general-security')">General Security</button>
+            </div>
+            <div class="sort-options">
+                <select id="sortSelect" onchange="sortDiscussions()">
+                    <option value="recent">Most Recent</option>
+                    <option value="popular">Most Popular</option>
+                    <option value="replies">Most Replies</option>
+                    <option value="views">Most Views</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <!-- Discussion List -->
+    <section class="discussion-list-section">
+        <div class="container">
+            <div id="discussionList" class="discussion-list">
+                <!-- Discussions will be loaded here -->
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="btn btn-outline" onclick="previousPage()" id="prevBtn">Previous</button>
+                <span class="page-info">Page <span id="currentPage">1</span> of <span id="totalPages">3</span></span>
+                <button class="btn btn-outline" onclick="nextPage()" id="nextBtn">Next</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Discussion Modal -->
+    <div id="newDiscussionModal" class="modal">
+        <div class="modal-content wide">
+            <div class="modal-header">
+                <h2>Start New Discussion</h2>
+                <span class="close" onclick="closeModal('newDiscussionModal')">&times;</span>
+            </div>
+            <form id="newDiscussionForm" onsubmit="createNewDiscussion(event)">
+                <div class="form-group">
+                    <label for="discussionTitle">Title</label>
+                    <input type="text" id="discussionTitle" placeholder="What would you like to discuss?" required>
+                </div>
+                <div class="form-group">
+                    <label for="discussionCategory">Category</label>
+                    <select id="discussionCategory" required>
+                        <option value="">Select a category</option>
+                        <option value="threat-analysis">Threat Analysis</option>
+                        <option value="cryptography">Cryptography</option>
+                        <option value="career-guidance">Career Guidance</option>
+                        <option value="tools-scripts">Tools & Scripts</option>
+                        <option value="learning-resources">Learning Resources</option>
+                        <option value="general-security">General Security</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="discussionContent">Content</label>
+                    <textarea id="discussionContent" rows="10" placeholder="Share your thoughts, questions, or insights..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="discussionPinned"> Pin this discussion
+                    </label>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Create Discussion</button>
+                    <button type="button" class="btn btn-outline" onclick="closeModal('newDiscussionModal')">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Include all modals from main page -->
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Login to CyberCrypto</h2>
+                <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            </div>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    <a href="#" onclick="openRegisterModal(); closeModal('loginModal')">Don't have an account? Register</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Join CyberCrypto Forum</h2>
+                <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            </div>
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerUsername">Username</label>
+                    <input type="text" id="registerUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPasswordConfirm">Confirm Password</label>
+                    <input type="password" id="registerPasswordConfirm" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Join Forum</button>
+                    <a href="#" onclick="openLoginModal(); closeModal('registerModal')">Already have an account? Login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Search Results Modal -->
+    <div id="searchModal" class="modal">
+        <div class="modal-content wide">
+            <div class="modal-header">
+                <h2>Search Results</h2>
+                <span class="close" onclick="closeModal('searchModal')">&times;</span>
+            </div>
+            <div class="search-filters">
+                <select id="categoryFilter">
+                    <option value="">All Categories</option>
+                    <option value="threat-analysis">Threat Analysis</option>
+                    <option value="cryptography">Cryptography</option>
+                    <option value="career-guidance">Career Guidance</option>
+                    <option value="tools-scripts">Tools & Scripts</option>
+                    <option value="learning-resources">Learning Resources</option>
+                    <option value="general-security">General Security</option>
+                </select>
+                <select id="dateFilter">
+                    <option value="">Any time</option>
+                    <option value="today">Today</option>
+                    <option value="week">This week</option>
+                    <option value="month">This month</option>
+                    <option value="year">This year</option>
+                </select>
+                <button class="btn btn-outline" onclick="applySearchFilters()">Apply Filters</button>
+            </div>
+            <div id="searchResults" class="search-results">
+                <!-- Search results will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="discussions.js"></script>
+</body>
+</html>

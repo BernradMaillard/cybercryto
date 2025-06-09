@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post - CyberCrypto Security Forum</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="page-styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>CyberCrypto</h1>
+                <span class="subtitle">Security Forum</span>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search discussions..." class="search-input">
+                <button class="search-btn" onclick="searchDiscussions()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="discussions.html" class="nav-link">Discussions</a>
+                <a href="resources.html" class="nav-link">Resources</a>
+                <a href="events.html" class="nav-link">Events</a>
+                <a href="careers.html" class="nav-link">Careers</a>
+            </nav>
+
+            <!-- User Authentication -->
+            <div class="auth-section">
+                <div id="guestUser" class="guest-section">
+                    <button class="btn btn-outline" onclick="openLoginModal()">Login</button>
+                    <button class="btn btn-primary" onclick="openRegisterModal()">Join Forum</button>
+                </div>
+                <div id="authenticatedUser" class="user-section" style="display: none;">
+                    <div class="user-avatar" onclick="toggleUserMenu()">
+                        <img src="https://ext.same-assets.com/949748317/2189427677.svg" alt="User Avatar" id="userAvatar">
+                        <span id="userName">John Doe</span>
+                    </div>
+                    <div class="user-menu" id="userMenu">
+                        <a href="#" onclick="viewProfile()">Profile</a>
+                        <a href="my-posts.html">My Posts</a>
+                        <a href="#" onclick="viewSettings()">Settings</a>
+                        <a href="#" onclick="logout()">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Create New Discussion</h1>
+            <p>Share your knowledge and start a conversation with the community</p>
+            <div class="breadcrumb">
+                <a href="discussions.html">Discussions</a> > Create Post
+            </div>
+        </div>
+    </section>
+
+    <!-- Create Post Form -->
+    <section class="create-post-section">
+        <div class="container">
+            <div class="create-post-container">
+                <form id="createPostForm" class="post-form">
+                    <!-- Post Title -->
+                    <div class="form-group">
+                        <label for="postTitle">Discussion Title *</label>
+                        <input type="text" id="postTitle" placeholder="What would you like to discuss?" required maxlength="200">
+                        <div class="char-counter">
+                            <span id="titleCounter">0/200</span>
+                        </div>
+                    </div>
+
+                    <!-- Category Selection -->
+                    <div class="form-group">
+                        <label for="postCategory">Category *</label>
+                        <select id="postCategory" required>
+                            <option value="">Select a category</option>
+                            <option value="threat-analysis">🔍 Threat Analysis</option>
+                            <option value="cryptography">🔐 Cryptography</option>
+                            <option value="career-guidance">💼 Career Guidance</option>
+                            <option value="tools-scripts">⚙️ Tools & Scripts</option>
+                            <option value="learning-resources">📚 Learning Resources</option>
+                            <option value="general-security">🛡️ General Security</option>
+                        </select>
+                    </div>
+
+                    <!-- Tags -->
+                    <div class="form-group">
+                        <label for="postTags">Tags</label>
+                        <input type="text" id="postTags" placeholder="Add tags separated by commas (e.g., encryption, security, tutorial)">
+                        <div class="form-help">
+                            Tags help others find your discussion. Add up to 5 relevant tags.
+                        </div>
+                        <div id="tagPreview" class="tag-preview"></div>
+                    </div>
+
+                    <!-- Post Content -->
+                    <div class="form-group">
+                        <label for="postContent">Content *</label>
+                        <div class="editor-toolbar">
+                            <button type="button" class="editor-btn" onclick="formatText('bold')" title="Bold">
+                                <strong>B</strong>
+                            </button>
+                            <button type="button" class="editor-btn" onclick="formatText('italic')" title="Italic">
+                                <em>I</em>
+                            </button>
+                            <button type="button" class="editor-btn" onclick="formatText('code')" title="Code">
+                                &lt;/&gt;
+                            </button>
+                            <button type="button" class="editor-btn" onclick="formatText('link')" title="Link">
+                                🔗
+                            </button>
+                        </div>
+                        <textarea id="postContent" rows="15" placeholder="Share your thoughts, questions, or insights with the community. Be specific and provide context to help others understand your discussion topic." required></textarea>
+                        <div class="char-counter">
+                            <span id="contentCounter">0 characters</span>
+                        </div>
+                    </div>
+
+                    <!-- Post Options -->
+                    <div class="form-group">
+                        <label>Post Options</label>
+                        <div class="post-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="allowComments" checked>
+                                <span class="checkmark"></span>
+                                Allow comments on this post
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="notifyReplies" checked>
+                                <span class="checkmark"></span>
+                                Notify me of replies
+                            </label>
+                            <label class="checkbox-label" id="pinOption" style="display: none;">
+                                <input type="checkbox" id="pinPost">
+                                <span class="checkmark"></span>
+                                Pin this discussion (Admin only)
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Preview Section -->
+                    <div class="form-group">
+                        <label>Preview</label>
+                        <div id="postPreview" class="post-preview">
+                            <div class="preview-placeholder">
+                                Type in the fields above to see a preview of your post
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-outline" onclick="togglePreview()">
+                            <span id="previewToggleText">Show Preview</span>
+                        </button>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <div class="action-buttons">
+                            <button type="button" class="btn btn-outline" onclick="saveDraft()">
+                                💾 Save Draft
+                            </button>
+                            <button type="button" class="btn btn-outline" onclick="cancelPost()">
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                📝 Publish Discussion
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <div class="sidebar-card">
+                        <h3>📋 Posting Guidelines</h3>
+                        <ul>
+                            <li>Choose a clear, descriptive title</li>
+                            <li>Select the most appropriate category</li>
+                            <li>Provide context and details in your post</li>
+                            <li>Use tags to help others find your discussion</li>
+                            <li>Be respectful and constructive</li>
+                            <li>Search existing discussions first</li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h3>🎯 Popular Categories</h3>
+                        <div class="category-stats">
+                            <div class="category-stat">
+                                <span class="category-name">Threat Analysis</span>
+                                <span class="post-count">1,247 posts</span>
+                            </div>
+                            <div class="category-stat">
+                                <span class="category-name">Cryptography</span>
+                                <span class="post-count">856 posts</span>
+                            </div>
+                            <div class="category-stat">
+                                <span class="category-name">Career Guidance</span>
+                                <span class="post-count">634 posts</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h3>💡 Tips for Success</h3>
+                        <ul>
+                            <li>Include code examples when relevant</li>
+                            <li>Link to external resources</li>
+                            <li>Ask specific questions</li>
+                            <li>Share your research and findings</li>
+                            <li>Engage with replies constructively</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Include modals -->
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Login to CyberCrypto</h2>
+                <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            </div>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    <a href="#" onclick="openRegisterModal(); closeModal('loginModal')">Don't have an account? Register</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Join CyberCrypto Forum</h2>
+                <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            </div>
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerUsername">Username</label>
+                    <input type="text" id="registerUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPasswordConfirm">Confirm Password</label>
+                    <input type="password" id="registerPasswordConfirm" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Join Forum</button>
+                    <a href="#" onclick="openLoginModal(); closeModal('registerModal')">Already have an account? Login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Search Results Modal -->
+    <div id="searchModal" class="modal">
+        <div class="modal-content wide">
+            <div class="modal-header">
+                <h2>Search Results</h2>
+                <span class="close" onclick="closeModal('searchModal')">&times;</span>
+            </div>
+            <div class="search-filters">
+                <select id="categoryFilter">
+                    <option value="">All Categories</option>
+                    <option value="threat-analysis">Threat Analysis</option>
+                    <option value="cryptography">Cryptography</option>
+                    <option value="career-guidance">Career Guidance</option>
+                    <option value="tools-scripts">Tools & Scripts</option>
+                    <option value="learning-resources">Learning Resources</option>
+                    <option value="general-security">General Security</option>
+                </select>
+                <select id="dateFilter">
+                    <option value="">Any time</option>
+                    <option value="today">Today</option>
+                    <option value="week">This week</option>
+                    <option value="month">This month</option>
+                    <option value="year">This year</option>
+                </select>
+                <button class="btn btn-outline" onclick="applySearchFilters()">Apply Filters</button>
+            </div>
+            <div id="searchResults" class="search-results">
+                <!-- Search results will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="create-post.js"></script>
+</body>
+</html>

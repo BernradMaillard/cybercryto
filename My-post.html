@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Posts - CyberCrypto Security Forum</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="page-styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>CyberCrypto</h1>
+                <span class="subtitle">Security Forum</span>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search discussions..." class="search-input">
+                <button class="search-btn" onclick="searchDiscussions()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="discussions.html" class="nav-link">Discussions</a>
+                <a href="resources.html" class="nav-link">Resources</a>
+                <a href="events.html" class="nav-link">Events</a>
+                <a href="careers.html" class="nav-link">Careers</a>
+            </nav>
+
+            <!-- User Authentication -->
+            <div class="auth-section">
+                <div id="guestUser" class="guest-section">
+                    <button class="btn btn-outline" onclick="openLoginModal()">Login</button>
+                    <button class="btn btn-primary" onclick="openRegisterModal()">Join Forum</button>
+                </div>
+                <div id="authenticatedUser" class="user-section" style="display: none;">
+                    <div class="user-avatar" onclick="toggleUserMenu()">
+                        <img src="https://ext.same-assets.com/949748317/2189427677.svg" alt="User Avatar" id="userAvatar">
+                        <span id="userName">John Doe</span>
+                    </div>
+                    <div class="user-menu" id="userMenu">
+                        <a href="#" onclick="viewProfile()">Profile</a>
+                        <a href="my-posts.html" class="active">My Posts</a>
+                        <a href="#" onclick="viewSettings()">Settings</a>
+                        <a href="#" onclick="logout()">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>My Posts</h1>
+            <p>Manage and track your discussions and contributions</p>
+            <div class="page-actions">
+                <a href="create-post.html" class="btn btn-primary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    Create New Post
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- My Posts Dashboard -->
+    <section class="my-posts-section">
+        <div class="container">
+            <div class="my-posts-container">
+                <!-- Stats Overview -->
+                <div class="stats-overview">
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalPosts">0</div>
+                        <div class="stat-label">Total Posts</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalViews">0</div>
+                        <div class="stat-label">Total Views</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalReplies">0</div>
+                        <div class="stat-label">Total Replies</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalDrafts">0</div>
+                        <div class="stat-label">Drafts</div>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="post-tabs">
+                    <button class="tab-btn active" onclick="switchTab('published')">Published Posts</button>
+                    <button class="tab-btn" onclick="switchTab('drafts')">Drafts</button>
+                </div>
+
+                <!-- Published Posts -->
+                <div id="publishedTab" class="tab-content active">
+                    <div class="posts-controls">
+                        <div class="search-posts">
+                            <input type="text" id="postSearch" placeholder="Search my posts..." onkeyup="searchMyPosts()">
+                        </div>
+                        <div class="sort-posts">
+                            <select id="postSort" onchange="sortMyPosts()">
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                                <option value="views">Most Views</option>
+                                <option value="replies">Most Replies</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="publishedPosts" class="posts-list">
+                        <!-- Published posts will be loaded here -->
+                    </div>
+
+                    <div id="noPublishedPosts" class="empty-state" style="display: none;">
+                        <div class="empty-icon">📝</div>
+                        <h3>No posts yet</h3>
+                        <p>You haven't published any discussions yet. Start sharing your knowledge with the community!</p>
+                        <a href="create-post.html" class="btn btn-primary">Create Your First Post</a>
+                    </div>
+                </div>
+
+                <!-- Drafts -->
+                <div id="draftsTab" class="tab-content">
+                    <div id="draftsList" class="drafts-list">
+                        <!-- Drafts will be loaded here -->
+                    </div>
+
+                    <div id="noDrafts" class="empty-state" style="display: none;">
+                        <div class="empty-icon">💾</div>
+                        <h3>No drafts</h3>
+                        <p>You don't have any saved drafts. Drafts are automatically saved when you're writing a post.</p>
+                        <a href="create-post.html" class="btn btn-outline">Start Writing</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Confirm Deletion</h2>
+                <span class="close" onclick="closeModal('deleteModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this post? This action cannot be undone.</p>
+                <div class="post-preview" id="deletePreview">
+                    <!-- Post preview will be shown here -->
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-outline" onclick="closeModal('deleteModal')">Cancel</button>
+                <button class="btn btn-primary delete-btn" onclick="confirmDelete()">Delete Post</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include modals -->
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Login to CyberCrypto</h2>
+                <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            </div>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    <a href="#" onclick="openRegisterModal(); closeModal('loginModal')">Don't have an account? Register</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Join CyberCrypto Forum</h2>
+                <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            </div>
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerUsername">Username</label>
+                    <input type="text" id="registerUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPasswordConfirm">Confirm Password</label>
+                    <input type="password" id="registerPasswordConfirm" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Join Forum</button>
+                    <a href="#" onclick="openLoginModal(); closeModal('registerModal')">Already have an account? Login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Search Results Modal -->
+    <div id="searchModal" class="modal">
+        <div class="modal-content wide">
+            <div class="modal-header">
+                <h2>Search Results</h2>
+                <span class="close" onclick="closeModal('searchModal')">&times;</span>
+            </div>
+            <div class="search-filters">
+                <select id="categoryFilter">
+                    <option value="">All Categories</option>
+                    <option value="threat-analysis">Threat Analysis</option>
+                    <option value="cryptography">Cryptography</option>
+                    <option value="career-guidance">Career Guidance</option>
+                    <option value="tools-scripts">Tools & Scripts</option>
+                    <option value="learning-resources">Learning Resources</option>
+                    <option value="general-security">General Security</option>
+                </select>
+                <select id="dateFilter">
+                    <option value="">Any time</option>
+                    <option value="today">Today</option>
+                    <option value="week">This week</option>
+                    <option value="month">This month</option>
+                    <option value="year">This year</option>
+                </select>
+                <button class="btn btn-outline" onclick="applySearchFilters()">Apply Filters</button>
+            </div>
+            <div id="searchResults" class="search-results">
+                <!-- Search results will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="my-posts.js"></script>
+</body>
+</html>
