@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}Events - CyberCrypto Security Forum{% endblock %}
+
+{% block content %}
+<div class="container">
+    <section class="categories-section">
+        <div class="categories-header">
+            <h1>Cybersecurity Events</h1>
+            <p>Stay updated with the latest conferences, webinars, and community meetups</p>
+        </div>
+
+        <!-- Upcoming Events -->
+        <section style="margin-bottom: 3rem;">
+            <h2 style="margin-bottom: 2rem;">Upcoming Events</h2>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-title">CyberSec Global Summit 2024</div>
+                    <div class="category-description">
+                        Join industry leaders discussing the future of cybersecurity. Topics include AI in security, zero-trust architecture, and quantum cryptography.
+                    </div>
+                    <div style="margin: 1rem 0;">
+                        <span style="color: var(--accent-primary); font-weight: bold;">📅 March 15-16, 2024</span><br>
+                        <span style="color: var(--text-secondary);">🌍 Virtual Event</span>
+                    </div>
+                    <div class="category-footer">
+                        <div class="category-posts">Free Registration</div>
+                        <div class="category-status">Open</div>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-title">Cryptography Workshop</div>
+                    <div class="category-description">
+                        Hands-on workshop covering modern encryption techniques, digital signatures, and secure key management practices.
+                    </div>
+                    <div style="margin: 1rem 0;">
+                        <span style="color: var(--accent-primary); font-weight: bold;">📅 March 22, 2024</span><br>
+                        <span style="color: var(--text-secondary);">🏢 San Francisco, CA</span>
+                    </div>
+                    <div class="category-footer">
+                        <div class="category-posts">$149 Early Bird</div>
+                        <div class="category-status">Limited</div>
+                    </div>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-title">Threat Intelligence Meetup</div>
+                    <div class="category-description">
+                        Monthly community meetup discussing latest threat intelligence, IOCs, and attribution techniques.
+                    </div>
+                    <div style="margin: 1rem 0;">
+                        <span style="color: var(--accent-primary); font-weight: bold;">📅 Every 3rd Friday</span><br>
+                        <span style="color: var(--text-secondary);">🌍 Online & Major Cities</span>
+                    </div>
+                    <div class="category-footer">
+                        <div class="category-posts">Members Only</div>
+                        <div class="category-status">Active</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Past Events -->
+        <section>
+            <h2 style="margin-bottom: 2rem;">Recent Events</h2>
+            <div style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; padding: 2rem;">
+                <div style="display: grid; gap: 1rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background-color: var(--bg-tertiary); border-radius: 5px;">
+                        <div>
+                            <strong style="color: var(--text-primary);">Zero-Day Vulnerability Response Workshop</strong>
+                            <div style="color: var(--text-secondary); font-size: 0.9rem;">February 28, 2024 • 150 attendees</div>
+                        </div>
+                        <div style="color: var(--accent-primary);">📹 Recording Available</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background-color: var(--bg-tertiary); border-radius: 5px;">
+                        <div>
+                            <strong style="color: var(--text-primary);">Annual Security Conference 2024</strong>
+                            <div style="color: var(--text-secondary); font-size: 0.9rem;">February 10-12, 2024 • 500+ attendees</div>
+                        </div>
+                        <div style="color: var(--accent-primary);">📹 Recording Available</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background-color: var(--bg-tertiary); border-radius: 5px;">
+                        <div>
+                            <strong style="color: var(--text-primary);">Incident Response Training</strong>
+                            <div style="color: var(--text-secondary); font-size: 0.9rem;">January 25, 2024 • 75 attendees</div>
+                        </div>
+                        <div style="color: var(--accent-primary);">📹 Recording Available</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Event Submission CTA -->
+        <section class="hero" style="padding: 2rem 0; margin-top: 3rem;">
+            <h2>Host an Event</h2>
+            <p>Want to organize a cybersecurity event for our community?</p>
+            <div style="margin-top: 2rem;">
+                {% if current_user.is_authenticated %}
+                    <a href="#" class="btn btn-primary" onclick="alert('Event hosting feature would be implemented here')">Submit Event Proposal</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="btn btn-primary">Login to Host Events</a>
+                {% endif %}
+            </div>
+        </section>
+    </section>
+</div>
+{% endblock %}

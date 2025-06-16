@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %}Leaderboard - CyberCrypto Security Forum{% endblock %}
+
+{% block content %}
+<div class="container">
+    <section class="categories-section">
+        <div class="categories-header">
+            <h1>Community Leaderboard</h1>
+            <p>Top contributors and most active members in our cybersecurity community</p>
+        </div>
+
+        <!-- Top Contributors -->
+        <section style="margin-bottom: 3rem;">
+            <h2 style="margin-bottom: 2rem;">🏆 Top Contributors</h2>
+            <div style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; padding: 2rem;">
+                <div style="display: grid; gap: 1rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background-color: var(--bg-tertiary); border-radius: 5px; border-left: 4px solid #FFD700;">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <span style="font-size: 1.5rem;">🥇</span>
+                            <div>
+                                <strong style="color: var(--text-primary);">CyberExpert42</strong>
+                                <div style="color: var(--text-secondary); font-size: 0.9rem;">Security Architect • 5 years member</div>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="color: var(--accent-primary); font-weight: bold;">2,847 points</div>
+                            <div style="color: var(--text-secondary); font-size: 0.9rem;">342 posts</div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background-color: var(--bg-tertiary); border-radius: 5px; border-left: 4px solid #C0C0C0;">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <span style="font-size: 1.5rem;">🥈</span>
+                            <div>
+                                <strong style="color: var(--text-primary);">PenTester_Pro</strong>
+                                <div style="color: var(--text-secondary); font-size: 0.9rem;">Penetration Tester • 3 years member</div>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="color: var(--accent-primary); font-weight: bold;">2,156 points</div>
+                            <div style="color: var(--text-secondary); font-size: 0.9rem;">298 posts</div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background-color: var(--bg-tertiary); border-radius: 5px; border-left: 4px solid #CD7F32;">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <span style="font-size: 1.5rem;">🥉</span>
+                            <div>
+                                <strong style="color: var(--text-primary);">CryptoGuardian</strong>
+                                <div style="color: var(--text-secondary); font-size: 0.9rem;">Cryptography Specialist • 4 years member</div>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="color: var(--accent-primary); font-weight: bold;">1,923 points</div>
+                            <div style="color: var(--text-secondary); font-size: 0.9rem;">245 posts</div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background-color: var(--bg-tertiary); border-radius: 5px;">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <span style="font-size: 1.2rem;">4.</span>
+                            <div>
+                                <strong style="color: var(--text-primary);">IncidentResponder</strong>
+                                <div style="color: var(--text-secondary); font-size: 0.9rem;">SOC Analyst • 2 years member</div>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="color: var(--accent-primary); font-weight: bold;">1,654 points</div>
+                            <div style="color: var(--text-secondary); font-size: 0.9rem;">189 posts</div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background-color: var(--bg-tertiary); border-radius: 5px;">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <span style="font-size: 1.2rem;">5.</span>
+                            <div>
+                                <strong style="color: var(--text-primary);">ForensicsDetective</strong>
+                                <div style="color: var(--text-secondary); font-size: 0.9rem;">Digital Forensics Expert • 6 years member</div>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="color: var(--accent-primary); font-weight: bold;">1,432 points</div>
+                            <div style="color: var(--text-secondary); font-size: 0.9rem;">156 posts</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories -->
+        <section>
+            <h2 style="margin-bottom: 2rem;">🏅 Recognition Categories</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; padding: 2rem; text-align: center;">
+                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">💬 Most Active Discussant</h3>
+                    <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">CyberExpert42</div>
+                    <div style="color: var(--text-secondary);">342 posts this month</div>
+                </div>
+
+                <div style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; padding: 2rem; text-align: center;">
+                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">🎯 Problem Solver</h3>
+                    <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">PenTester_Pro</div>
+                    <div style="color: var(--text-secondary);">89 solutions provided</div>
+                </div>
+
+                <div style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; padding: 2rem; text-align: center;">
+                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">📚 Knowledge Sharer</h3>
+                    <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">CryptoGuardian</div>
+                    <div style="color: var(--text-secondary);">156 helpful resources shared</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Points System Explanation -->
+        <section class="hero" style="padding: 2rem 0; margin-top: 3rem;">
+            <h2>How Points Work</h2>
+            <div style="text-align: left; max-width: 600px; margin: 0 auto;">
+                <div style="display: grid; gap: 1rem; margin-top: 2rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>Creating a helpful post</span>
+                        <span style="color: var(--accent-primary); font-weight: bold;">+10 points</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>Receiving an upvote</span>
+                        <span style="color: var(--accent-primary); font-weight: bold;">+5 points</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>Providing accepted solution</span>
+                        <span style="color: var(--accent-primary); font-weight: bold;">+25 points</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>Sharing valuable resources</span>
+                        <span style="color: var(--accent-primary); font-weight: bold;">+15 points</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+</div>
+{% endblock %}

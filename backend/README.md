@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# cybercryto
-create a forum space for those who love cyberscurity and cryptology
-=======
 # CyberCrypto Security Forum
 
 A comprehensive, secure cybersecurity community platform built with Flask, featuring advanced security measures, modern design, and full functionality for professional discussions, resource sharing, and career development.
@@ -385,4 +381,3 @@ For support and questions:
 ---
 
 **Built with ❤️ for the cybersecurity community**
->>>>>>> cff6260 (il s'agit d'un forum des passionnes de la cybersecurite et de la cryptographie, nous somme en phase de developpement l'interface frontend est pratiquement fini, sauf les fonctionnalites creer un post, commenter un post)

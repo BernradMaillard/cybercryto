@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+
+{% block title %}Join Forum - CyberCrypto Security Forum{% endblock %}
+
+{% block content %}
+<div class="container">
+    <section style="padding: 3rem 0;">
+        <div class="form-container">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h1 style="color: var(--accent-primary); margin-bottom: 0.5rem;">Join the Community</h1>
+                <p style="color: var(--text-secondary);">Become part of the premier cybersecurity forum</p>
+            </div>
+
+            <form method="POST" action="{{ url_for('join') }}">
+                {{ form.hidden_tag() }}
+
+                <div class="form-group">
+                    {{ form.username.label(class="form-label") }}
+                    {{ form.username(class="form-control", placeholder="Choose a unique username") }}
+                    {% if form.username.errors %}
+                        <div style="color: var(--error-color); font-size: 0.9rem; margin-top: 0.25rem;">
+                            {% for error in form.username.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <div style="color: var(--text-secondary); font-size: 0.8rem; margin-top: 0.25rem;">
+                        3-20 characters, letters, numbers, and underscores only
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form.email.label(class="form-label") }}
+                    {{ form.email(class="form-control", placeholder="Enter your email address") }}
+                    {% if form.email.errors %}
+                        <div style="color: var(--error-color); font-size: 0.9rem; margin-top: 0.25rem;">
+                            {% for error in form.email.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <div style="color: var(--text-secondary); font-size: 0.8rem; margin-top: 0.25rem;">
+                        We'll never share your email with third parties
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form.password.label(class="form-label") }}
+                    {{ form.password(class="form-control", placeholder="Create a strong password") }}
+                    {% if form.password.errors %}
+                        <div style="color: var(--error-color); font-size: 0.9rem; margin-top: 0.25rem;">
+                            {% for error in form.password.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <div id="password-strength" style="margin-top: 0.5rem;">
+                        <div style="color: var(--text-secondary); font-size: 0.8rem;">Password strength:</div>
+                        <div style="width: 100%; height: 4px; background-color: var(--bg-tertiary); border-radius: 2px; margin-top: 0.25rem;">
+                            <div id="strength-bar" style="height: 100%; width: 0%; background-color: var(--error-color); border-radius: 2px; transition: all 0.3s ease;"></div>
+                        </div>
+                        <div id="strength-text" style="color: var(--text-secondary); font-size: 0.8rem; margin-top: 0.25rem;">Enter a password</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form.password2.label(class="form-label") }}
+                    {{ form.password2(class="form-control", placeholder="Confirm your password") }}
+                    {% if form.password2.errors %}
+                        <div style="color: var(--error-color); font-size: 0.9rem; margin-top: 0.25rem;">
+                            {% for error in form.password2.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <div id="password-match" style="color: var(--text-secondary); font-size: 0.8rem; margin-top: 0.25rem;"></div>
+                </div>
+
+                <div style="margin: 2rem 0; padding: 1rem; background-color: rgba(0, 196, 180, 0.1); border: 1px solid var(--accent-primary); border-radius: 5px;">
+                    <label style="display: flex; align-items: flex-start; cursor: pointer;">
+                        <input type="checkbox" id="terms-checkbox" required style="margin-right: 0.75rem; margin-top: 0.25rem;">
+                        <span style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.4;">
+                            I agree to the <a href="#" style="color: var(--accent-primary);">Terms of Service</a> and
+                            <a href="#" style="color: var(--accent-primary);">Privacy Policy</a>, and I understand that
+                            this forum is for educational and professional cybersecurity discussions only.
+                        </span>
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    {{ form.submit(class="btn btn-primary") }}
+                </div>
+            </form>
+
+            <div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+                <p style="color: var(--text-secondary); margin-bottom: 1rem;">Already have an account?</p>
+                <a href="{{ url_for('login') }}" class="btn btn-outline">Login Here</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Features -->
+    <section class="hero" style="padding: 2rem 0;">
+        <h2>What You'll Get</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 2rem; text-align: left; max-width: 900px; margin-left: auto; margin-right: auto;">
+            <div style="background-color: var(--bg-secondary); padding: 2rem; border-radius: 10px; border: 1px solid var(--border-color);">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">🔒</div>
+                <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Expert-Led Discussions</h3>
+                <p style="color: var(--text-secondary);">Join conversations with certified cybersecurity professionals and industry experts</p>
+            </div>
+            <div style="background-color: var(--bg-secondary); padding: 2rem; border-radius: 10px; border: 1px solid var(--border-color);">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">📚</div>
+                <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Exclusive Resources</h3>
+                <p style="color: var(--text-secondary);">Access premium guides, tools, and educational materials not available elsewhere</p>
+            </div>
+            <div style="background-color: var(--bg-secondary); padding: 2rem; border-radius: 10px; border: 1px solid var(--border-color);">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">🚀</div>
+                <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Career Growth</h3>
+                <p style="color: var(--text-secondary);">Network with professionals and discover new career opportunities in cybersecurity</p>
+            </div>
+            <div style="background-color: var(--bg-secondary); padding: 2rem; border-radius: 10px; border: 1px solid var(--border-color);">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">⚡</div>
+                <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Real-time Alerts</h3>
+                <p style="color: var(--text-secondary);">Stay updated with the latest security threats and vulnerabilities as they emerge</p>
+            </div>
+            <div style="background-color: var(--bg-secondary); padding: 2rem; border-radius: 10px; border: 1px solid var(--border-color);">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">🏆</div>
+                <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Recognition System</h3>
+                <p style="color: var(--text-secondary);">Earn badges and build your reputation through valuable contributions to the community</p>
+            </div>
+            <div style="background-color: var(--bg-secondary); padding: 2rem; border-radius: 10px; border: 1px solid var(--border-color);">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">🔐</div>
+                <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">Secure Environment</h3>
+                <p style="color: var(--text-secondary);">Discuss sensitive security topics in a moderated, professional environment</p>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const passwordField = document.querySelector('#password');
+        const confirmField = document.querySelector('#password2');
+        const strengthBar = document.querySelector('#strength-bar');
+        const strengthText = document.querySelector('#strength-text');
+        const matchText = document.querySelector('#password-match');
+
+        // Password strength checker
+        passwordField.addEventListener('input', function() {
+            const password = this.value;
+            const strength = calculatePasswordStrength(password);
+
+            // Update strength bar
+            strengthBar.style.width = strength.score + '%';
+            strengthBar.style.backgroundColor = strength.color;
+            strengthText.textContent = strength.text;
+            strengthText.style.color = strength.color;
+        });
+
+        // Password confirmation checker
+        confirmField.addEventListener('input', function() {
+            const password = passwordField.value;
+            const confirm = this.value;
+
+            if (confirm === '') {
+                matchText.textContent = '';
+                return;
+            }
+
+            if (password === confirm) {
+                matchText.textContent = '✓ Passwords match';
+                matchText.style.color = 'var(--success-color)';
+            } else {
+                matchText.textContent = '✗ Passwords do not match';
+                matchText.style.color = 'var(--error-color)';
+            }
+        });
+
+        function calculatePasswordStrength(password) {
+            let score = 0;
+            let text = 'Weak';
+            let color = 'var(--error-color)';
+
+            if (password.length >= 8) score += 25;
+            if (password.length >= 12) score += 25;
+            if (/[a-z]/.test(password)) score += 10;
+            if (/[A-Z]/.test(password)) score += 10;
+            if (/[0-9]/.test(password)) score += 10;
+            if (/[^A-Za-z0-9]/.test(password)) score += 20;
+
+            if (score >= 80) {
+                text = 'Strong';
+                color = 'var(--success-color)';
+            } else if (score >= 60) {
+                text = 'Good';
+                color = 'var(--warning-color)';
+            } else if (score >= 40) {
+                text = 'Fair';
+                color = 'var(--info-color)';
+            }
+
+            return { score, text, color };
+        }
+
+        // Form validation
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const termsCheckbox = document.querySelector('#terms-checkbox');
+            if (!termsCheckbox.checked) {
+                alert('Please accept the Terms of Service and Privacy Policy to continue.');
+                e.preventDefault();
+                return;
+            }
+
+            const password = passwordField.value;
+            const confirm = confirmField.value;
+            if (password !== confirm) {
+                alert('Passwords do not match. Please check your entries.');
+                e.preventDefault();
+                return;
+            }
+        });
+    });
+</script>
+{% endblock %}

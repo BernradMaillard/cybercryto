@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block title %}Login - CyberCrypto Security Forum{% endblock %}
+
+{% block content %}
+<div class="container">
+    <section style="padding: 3rem 0;">
+        <div class="form-container">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h1 style="color: var(--accent-primary); margin-bottom: 0.5rem;">Welcome Back</h1>
+                <p style="color: var(--text-secondary);">Log in to access the cybersecurity community</p>
+            </div>
+
+            <form method="POST" action="{{ url_for('login') }}">
+                {{ form.hidden_tag() }}
+
+                <div class="form-group">
+                    {{ form.username.label(class="form-label") }}
+                    {{ form.username(class="form-control", placeholder="Enter your username") }}
+                    {% if form.username.errors %}
+                        <div style="color: var(--error-color); font-size: 0.9rem; margin-top: 0.25rem;">
+                            {% for error in form.username.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.password.label(class="form-label") }}
+                    {{ form.password(class="form-control", placeholder="Enter your password") }}
+                    {% if form.password.errors %}
+                        <div style="color: var(--error-color); font-size: 0.9rem; margin-top: 0.25rem;">
+                            {% for error in form.password.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-actions">
+                    {{ form.submit(class="btn btn-primary") }}
+                </div>
+            </form>
+
+            <div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+                <p style="color: var(--text-secondary); margin-bottom: 1rem;">Don't have an account?</p>
+                <a href="{{ url_for('join') }}" class="btn btn-outline">Join the Forum</a>
+            </div>
+
+            <!-- Security Notice -->
+            <div style="margin-top: 2rem; padding: 1.5rem; background-color: rgba(0, 196, 180, 0.1); border: 1px solid var(--accent-primary); border-radius: 5px;">
+                <h4 style="color: var(--accent-primary); margin-bottom: 1rem;">🔒 Security Notice</h4>
+                <ul style="color: var(--text-secondary); font-size: 0.9rem; margin: 0; padding-left: 1.5rem;">
+                    <li>Your account will be temporarily locked after 5 failed login attempts</li>
+                    <li>Always use a strong, unique password for your account</li>
+                    <li>We never ask for your password via email or phone</li>
+                    <li>Report any suspicious activity to our security team</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="hero" style="padding: 2rem 0;">
+        <h2>Member Benefits</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem; text-align: left; max-width: 800px; margin-left: auto; margin-right: auto;">
+            <div style="background-color: var(--bg-secondary); padding: 1.5rem; border-radius: 10px; border: 1px solid var(--border-color);">
+                <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">💬 Forum Access</h3>
+                <p style="color: var(--text-secondary);">Participate in exclusive discussions and get expert advice</p>
+            </div>
+            <div style="background-color: var(--bg-secondary); padding: 1.5rem; border-radius: 10px; border: 1px solid var(--border-color);">
+                <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">📚 Premium Resources</h3>
+                <p style="color: var(--text-secondary);">Access to member-only guides and security tools</p>
+            </div>
+            <div style="background-color: var(--bg-secondary); padding: 1.5rem; border-radius: 10px; border: 1px solid var(--border-color);">
+                <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">🎯 Career Opportunities</h3>
+                <p style="color: var(--text-secondary);">Connect with employers and advance your cybersecurity career</p>
+            </div>
+            <div style="background-color: var(--bg-secondary); padding: 1.5rem; border-radius: 10px; border: 1px solid var(--border-color);">
+                <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">🏆 Recognition</h3>
+                <p style="color: var(--text-secondary);">Build your reputation and earn badges for contributions</p>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add form validation
+        const form = document.querySelector('form');
+        const usernameField = document.querySelector('#username');
+        const passwordField = document.querySelector('#password');
+
+        form.addEventListener('submit', function(e) {
+            let isValid = true;
+
+            // Clear previous errors
+            document.querySelectorAll('.field-error').forEach(el => el.remove());
+
+            // Validate username
+            if (usernameField.value.trim().length < 3) {
+                showFieldError(usernameField, 'Username must be at least 3 characters long');
+                isValid = false;
+            }
+
+            // Validate password
+            if (passwordField.value.length < 6) {
+                showFieldError(passwordField, 'Password must be at least 6 characters long');
+                isValid = false;
+            }
+
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+
+        function showFieldError(field, message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'field-error';
+            errorDiv.style.color = 'var(--error-color)';
+            errorDiv.style.fontSize = '0.9rem';
+            errorDiv.style.marginTop = '0.25rem';
+            errorDiv.textContent = message;
+            field.parentNode.appendChild(errorDiv);
+        }
+
+        // Auto-focus username field
+        usernameField.focus();
+    });
+</script>
+{% endblock %}

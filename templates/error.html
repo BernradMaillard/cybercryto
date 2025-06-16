@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Error {{ error_code }} - CyberCrypto Security Forum{% endblock %}
+
+{% block content %}
+<div class="container">
+    <section class="hero" style="padding: 4rem 0;">
+        <div style="text-align: center;">
+            <div style="font-size: 8rem; margin-bottom: 1rem;">
+                {% if error_code == 404 %}
+                    🔍
+                {% elif error_code == 500 %}
+                    ⚠️
+                {% elif error_code == 429 %}
+                    🚦
+                {% else %}
+                    ❌
+                {% endif %}
+            </div>
+
+            <h1 style="font-size: 3rem; margin-bottom: 1rem; color: var(--accent-primary);">
+                Error {{ error_code }}
+            </h1>
+
+            <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 2rem;">
+                {{ error_message }}
+            </p>
+
+            {% if error_code == 404 %}
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+                    The page you're looking for might have been moved, deleted, or doesn't exist.
+                </p>
+            {% elif error_code == 500 %}
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+                    We're experiencing technical difficulties. Our team has been notified.
+                </p>
+            {% elif error_code == 429 %}
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+                    You've made too many requests. Please wait a moment before trying again.
+                </p>
+            {% endif %}
+
+            <div style="margin-top: 2rem;">
+                <a href="{{ url_for('index') }}" class="btn btn-primary" style="margin-right: 1rem;">
+                    Go Home
+                </a>
+                <button onclick="history.back()" class="btn btn-outline">
+                    Go Back
+                </button>
+            </div>
+        </div>
+
+        <!-- Helpful Links -->
+        <div style="margin-top: 4rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+            <h3 style="color: var(--accent-primary); margin-bottom: 2rem; text-align: center;">
+                Maybe you're looking for:
+            </h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                <a href="{{ url_for('discussions') }}" style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 5px; padding: 1rem; text-decoration: none; color: var(--text-primary); transition: all 0.3s ease;">
+                    <strong>Discussions</strong><br>
+                    <small style="color: var(--text-secondary);">Browse forum topics</small>
+                </a>
+                <a href="{{ url_for('resources') }}" style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 5px; padding: 1rem; text-decoration: none; color: var(--text-primary); transition: all 0.3s ease;">
+                    <strong>Resources</strong><br>
+                    <small style="color: var(--text-secondary);">Security guides & tools</small>
+                </a>
+                <a href="{{ url_for('careers') }}" style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 5px; padding: 1rem; text-decoration: none; color: var(--text-primary); transition: all 0.3s ease;">
+                    <strong>Careers</strong><br>
+                    <small style="color: var(--text-secondary);">Job opportunities</small>
+                </a>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+    .container a:hover {
+        border-color: var(--accent-primary);
+        transform: translateY(-2px);
+    }
+</style>
+{% endblock %}

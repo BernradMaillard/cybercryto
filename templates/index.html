@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}CyberCrypto Security Forum - Empowering Digital Security{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-icon">🛡️</div>
+        <h1>CyberCrypto<br>Security Forum</h1>
+        <p>Join the premier community for cybersecurity professionals, enthusiasts, and learners. Share knowledge, collaborate on solutions, and stay ahead of emerging threats.</p>
+
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Secure Discussions</h3>
+                <p>Private and secure channels for sensitive security topics</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3>Global Community</h3>
+                <p>Connect with security experts from around the world</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Real-time Updates</h3>
+                <p>Stay current with the latest threats and vulnerabilities</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>Expert Moderation</h3>
+                <p>Curated content by certified security professionals</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Stats -->
+    <section class="stats-section">
+        <h2>Community Stats</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-number">{{ "{:,}".format(stats.members) }}</span>
+                <div class="stat-label">Members</div>
+                <div class="stat-change">+234</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">{{ "{:,}".format(stats.discussions) }}</span>
+                <div class="stat-label">Discussions</div>
+                <div class="stat-change">+89</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">{{ "{:,}".format(stats.daily_views) }}</span>
+                <div class="stat-label">Daily Views</div>
+                <div class="stat-change">+1,247</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">{{ "{:,}".format(stats.active_today) }}</span>
+                <div class="stat-label">Active Today</div>
+                <div class="stat-change">+312</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resource Center -->
+    <section class="resource-center">
+        <h2>Resource Center</h2>
+        <div class="resources-grid">
+            {% for resource in resources %}
+            <div class="resource-card">
+                <div class="resource-header">
+                    <div class="resource-title">{{ resource.name }}</div>
+                    <div class="resource-type">{{ resource.type }}</div>
+                </div>
+                <div class="resource-downloads">{{ "{:,}".format(resource.downloads) }} downloads</div>
+                <a href="#" class="btn btn-primary">Download</a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="hero" style="padding: 2rem 0;">
+        <h2>Ready to Join?</h2>
+        <p>Become part of the most active cybersecurity community</p>
+        <div style="margin-top: 2rem;">
+            {% if not current_user.is_authenticated %}
+                <a href="{{ url_for('join') }}" class="btn btn-primary" style="margin-right: 1rem;">Join Forum</a>
+                <a href="{{ url_for('login') }}" class="btn btn-outline">Login</a>
+            {% else %}
+                <a href="{{ url_for('discussions') }}" class="btn btn-primary" style="margin-right: 1rem;">Browse Discussions</a>
+                <a href="{{ url_for('resources') }}" class="btn btn-outline">View Resources</a>
+            {% endif %}
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Add some dynamic behavior to stats
+    document.addEventListener('DOMContentLoaded', function() {
+        const statNumbers = document.querySelectorAll('.stat-number');
+
+        statNumbers.forEach(function(stat) {
+            const finalValue = parseInt(stat.textContent.replace(/,/g, ''));
+            const increment = Math.ceil(finalValue / 100);
+            let currentValue = 0;
+
+            const timer = setInterval(function() {
+                currentValue += increment;
+                if (currentValue >= finalValue) {
+                    currentValue = finalValue;
+                    clearInterval(timer);
+                }
+                stat.textContent = currentValue.toLocaleString();
+            }, 20);
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.content }}</p>
+    <p class="text-muted">Post by {{ post.user.username }} le {{ post.created_at.strftime('%d/%m/%Y %H:%M') }}</p>
+    <hr>
+    <h3>Comments</h3>
+    {% for comment in comments %}
+        <div class="comment">
+            <b>{{ comment.user.username }}</b> le {{ comment.created_at.strftime('%d/%m/%Y %H:%M') }}<br>
+            {{ comment.content }}
+        </div>
+        <hr>
+    {% else %}
+        <p>No comment.</p>
+    {% endfor %}
+
+    {% if current_user.is_authenticated %}
+        <h4>Ajouter un commentaire</h4>
+        <form method="post">
+            {{ form.hidden_tag() }}
+            {{ form.content(class="form-control", rows=3) }}
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+    {% else %}
+        <p><a href="{{ url_for('login') }}">Connectez-vous</a> pour commenter.</p>
+    {% endif %}
+</div>
+{% endblock %}s

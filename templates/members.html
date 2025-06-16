@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Members - CyberCrypto Security Forum{% endblock %}
+
+{% block content %}
+<div class="container">
+    <section class="categories-section">
+        <div class="categories-header">
+            <h1>Community Members</h1>
+            <p>Connect with cybersecurity professionals and experts from around the world</p>
+        </div>
+
+        <!-- Member stats and info would go here -->
+        <div style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; padding: 2rem; text-align: center;">
+            <h2 style="color: var(--accent-primary); margin-bottom: 1rem;">🔒 Members Only Area</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+                Welcome to the exclusive members area! Here you can view member profiles,
+                connect with other professionals, and access member-only content.
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                <div>
+                    <h3 style="color: var(--accent-primary);">12,847</h3>
+                    <p style="color: var(--text-secondary);">Total Members</p>
+                </div>
+                <div>
+                    <h3 style="color: var(--accent-primary);">2,156</h3>
+                    <p style="color: var(--text-secondary);">Active Today</p>
+                </div>
+                <div>
+                    <h3 style="color: var(--accent-primary);">156</h3>
+                    <p style="color: var(--text-secondary);">Expert Contributors</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

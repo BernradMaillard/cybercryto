@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block title %}Resources - CyberCrypto Security Forum{% endblock %}
+
+{% block content %}
+<div class="container">
+    <section class="resource-center">
+        <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Resource Center</h1>
+        <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 3rem;">Access comprehensive cybersecurity guides, reports, and tools</p>
+
+        <div class="resources-grid">
+            {% for resource in resources %}
+            <div class="resource-card">
+                <div class="resource-header">
+                    <div class="resource-title">{{ resource.title }}</div>
+                    <div class="resource-type">{{ resource.type }}</div>
+                </div>
+                <div style="color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.5;">
+                    {{ resource.description }}
+                </div>
+                <div class="resource-downloads">
+                    {{ "{:,}".format(resource.downloads) }} downloads • {{ resource.file_size }}
+                </div>
+                <div style="margin-top: 1.5rem;">
+                    <a href="#" class="btn btn-primary download-btn" data-resource="{{ resource.title }}">Download {{ resource.type }}</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Additional Resources Section -->
+        <section style="margin-top: 4rem;">
+            <h2 style="text-align: center; margin-bottom: 3rem;">Additional Resources</h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; padding: 2rem;">
+                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">🔧 Security Tools</h3>
+                    <ul style="list-style: none; margin: 0; padding: 0;">
+                        <li style="margin-bottom: 0.75rem;"><a href="#" style="color: var(--text-secondary); text-decoration: none;">Vulnerability Scanners</a></li>
+                        <li style="margin-bottom: 0.75rem;"><a href="#" style="color: var(--text-secondary); text-decoration: none;">Penetration Testing Tools</a></li>
+                        <li style="margin-bottom: 0.75rem;"><a href="#" style="color: var(--text-secondary); text-decoration: none;">Network Security Tools</a></li>
+                        <li style="margin-bottom: 0.75rem;"><a href="#" style="color: var(--text-secondary); text-decoration: none;">Forensics Software</a></li>
+                        <li><a href="#" style="color: var(--text-secondary); text-decoration: none;">Encryption Tools</a></li>
+                    </ul>
+                </div>
+
+                <div style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; padding: 2rem;">
+                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">📚 Learning Paths</h3>
+                    <ul style="list-style: none; margin: 0; padding: 0;">
+                        <li style="margin-bottom: 0.75rem;"><a href="#" style="color: var(--text-secondary); text-decoration: none;">Beginner's Guide to Cybersecurity</a></li>
+                        <li style="margin-bottom: 0.75rem;"><a href="#" style="color: var(--text-secondary); text-decoration: none;">Advanced Threat Analysis</a></li>
+                        <li style="margin-bottom: 0.75rem;"><a href="#" style="color: var(--text-secondary); text-decoration: none;">Cryptography Fundamentals</a></li>
+                        <li style="margin-bottom: 0.75rem;"><a href="#" style="color: var(--text-secondary); text-decoration: none;">Incident Response</a></li>
+                        <li><a href="#" style="color: var(--text-secondary); text-decoration: none;">Compliance & Governance</a></li>
+                    </ul>
+                </div>
+
+                <div style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; padding: 2rem;">
+                    <h3 style="color: var(--accent-primary); margin-bottom: 1rem;">🏆 Certifications</h3>
+                    <ul style="list-style: none; margin: 0; padding: 0;">
+                        <li style="margin-bottom: 0.75rem;"><a href="#" style="color: var(--text-secondary); text-decoration: none;">CISSP Preparation</a></li>
+                        <li style="margin-bottom: 0.75rem;"><a href="#" style="color: var(--text-secondary); text-decoration: none;">CEH Study Materials</a></li>
+                        <li style="margin-bottom: 0.75rem;"><a href="#" style="color: var(--text-secondary); text-decoration: none;">CISM Resources</a></li>
+                        <li style="margin-bottom: 0.75rem;"><a href="#" style="color: var(--text-secondary); text-decoration: none;">Security+ Guides</a></li>
+                        <li><a href="#" style="color: var(--text-secondary); text-decoration: none;">OSCP Training</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resource Submission -->
+        <section class="hero" style="padding: 2rem 0; margin-top: 3rem;">
+            <h2>Contribute Resources</h2>
+            <p>Have valuable cybersecurity resources to share with the community?</p>
+            <div style="margin-top: 2rem;">
+                {% if current_user.is_authenticated %}
+                    <a href="#" class="btn btn-primary" onclick="alert('Resource submission feature would be implemented here')">Submit Resource</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="btn btn-primary">Login to Submit</a>
+                {% endif %}
+            </div>
+        </section>
+
+        <!-- Popular Downloads -->
+        <section style="margin-top: 3rem;">
+            <h2 style="text-align: center; margin-bottom: 2rem;">Most Popular Downloads</h2>
+            <div style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; padding: 2rem;">
+                <div style="display: grid; gap: 1rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background-color: var(--bg-tertiary); border-radius: 5px;">
+                        <div>
+                            <strong style="color: var(--text-primary);">NIST Cybersecurity Framework v2.0</strong>
+                            <div style="color: var(--text-secondary); font-size: 0.9rem;">Comprehensive security framework</div>
+                        </div>
+                        <div style="color: var(--accent-primary); font-weight: bold;">2.3k downloads</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background-color: var(--bg-tertiary); border-radius: 5px;">
+                        <div>
+                            <strong style="color: var(--text-primary);">OWASP Top 10 - 2024</strong>
+                            <div style="color: var(--text-secondary); font-size: 0.9rem;">Web application security risks</div>
+                        </div>
+                        <div style="color: var(--accent-primary); font-weight: bold;">1.8k downloads</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background-color: var(--bg-tertiary); border-radius: 5px;">
+                        <div>
+                            <strong style="color: var(--text-primary);">Modern Cryptography Handbook</strong>
+                            <div style="color: var(--text-secondary); font-size: 0.9rem;">Complete crypto implementation guide</div>
+                        </div>
+                        <div style="color: var(--accent-primary); font-weight: bold;">1.2k downloads</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background-color: var(--bg-tertiary); border-radius: 5px;">
+                        <div>
+                            <strong style="color: var(--text-primary);">Security Tools Database 2024</strong>
+                            <div style="color: var(--text-secondary); font-size: 0.9rem;">Comprehensive tool catalog</div>
+                        </div>
+                        <div style="color: var(--accent-primary); font-weight: bold;">945 downloads</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Handle download button clicks
+    document.addEventListener('DOMContentLoaded', function() {
+        const downloadBtns = document.querySelectorAll('.download-btn');
+
+        downloadBtns.forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const resourceName = this.getAttribute('data-resource');
+
+                // Show loading state
+                const originalText = this.textContent;
+                this.innerHTML = '<span class="loading"></span> Downloading...';
+                this.style.pointerEvents = 'none';
+
+                // Simulate download process
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                    this.style.pointerEvents = 'auto';
+                    alert('Download started for: ' + resourceName + '\n\n(In a real implementation, this would start the actual download)');
+                }, 2000);
+            });
+        });
+
+        // Add hover effects to resource links
+        const resourceLinks = document.querySelectorAll('ul li a');
+        resourceLinks.forEach(function(link) {
+            link.addEventListener('mouseover', function() {
+                this.style.color = 'var(--accent-primary)';
+            });
+            link.addEventListener('mouseout', function() {
+                this.style.color = 'var(--text-secondary)';
+            });
+        });
+    });
+</script>
+{% endblock %}

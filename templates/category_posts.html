@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Topics in {{ category.name }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Topics in {{ category.name }}</h2>
+    <p>{{ category.description }}</p>
+    {% if current_user.is_authenticated %}
+        <a href="{{ url_for('new_post', category_id=category.id) }}" class="btn btn-success" style="margin-bottom: 1rem;">
+            Create New Topic
+        </a>
+    {% endif %}
+    <ul class="list-group">
+        {% for post in posts %}
+            <li class="list-group-item">
+                <a href="{{ url_for('view_post', post_id=post.id) }}"><b>{{ post.title }}</b></a>
+                <br>
+                <small>
+                    by {{ post.user.username }} on {{ post.created_at.strftime('%d/%m/%Y %H:%M') }}
+                </small>
+            </li>
+        {% else %}
+            <li class="list-group-item">No topics in this category yet.</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('discussions') }}" class="btn btn-link" style="margin-top: 1rem;">&larr; Back to Categories</a>
+</div>
+{% endblock %}

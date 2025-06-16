@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}New sujet - {{ category.name }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Create a new sujet in {{ category.name }}</h2>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.title.label }}<br>
+            {{ form.title(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.content.label }}<br>
+            {{ form.content(class="form-control", rows=6) }}
+        </div>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-success") }}
+        </div>
+    </form>
+</div>
+{% endblock %}
